@@ -1,0 +1,92 @@
+<mat-card class="user-panel">
+  <mat-card-content>
+    <form class="user-form" #userForm="ngForm" passwordConfirmValidator>
+      <div class="user-form__row">
+        <mat-form-field class="user-form__item user-form__item--100">
+          <mat-label>Nome Completo</mat-label>
+          <input
+            type="text"
+            name="name"
+            [(ngModel)]="userSelected.name"
+            matInput
+            required
+          />
+          <mat-hint><b>Nome completo</b> do usuário</mat-hint>
+          <mat-error>O <b>nome</b> é obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="user-form__row">
+        <mat-form-field class="user-form__item user-form__item--50">
+          <mat-label>Usuário</mat-label>
+          <input
+            type="text"
+            name="username"
+            [(ngModel)]="userSelected.username"
+            [ngModelOptions]="{ updateOn: 'blur' }"
+            matInput
+            required
+            #userNameControl="ngModel"
+            [credentialsValidator]="credentialsValidateEnum.Username"
+          />
+          <mat-hint>O <b>usuário</b> será utilizado para login</mat-hint>
+          <mat-error *ngIf="userNameControl.hasError('required')">O <b>usuário</b> é obrigatório</mat-error>
+          <mat-error *ngIf="!userNameControl.hasError('required') && userNameControl.hasError('usernameAlreadyInUse')">O <b>nome de usuário</b> já está em uso</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="user-form__item user-form__item--50">
+          <mat-label>E-Mail</mat-label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="userSelected.email"
+            [ngModelOptions]="{ updateOn: 'blur' }"
+            matInput
+            required
+            #userEmailControl="ngModel"
+            emailValidator
+            [credentialsValidator]="credentialsValidateEnum.Email"
+          />
+          <mat-hint><b>E-Mail</b> do usuário</mat-hint>
+          <mat-error *ngIf="userEmailControl.hasError('required')">O <b>e-mail</b> é obrigatório</mat-error>
+          <mat-error *ngIf="!userEmailControl.hasError('required') && userEmailControl.hasError('invalidEmail')">O <b>e-mail</b> é inválido</mat-error>
+          <mat-error *ngIf="!userEmailControl.hasError('required') && userEmailControl.hasError('emailAlreadyInUse')">O <b>E-Mail</b> já está em uso</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="user-form__row">
+        <mat-form-field class="user-form__item user-form__item--50">
+          <mat-label>Senha</mat-label>
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="userSelected.password"
+            matInput
+            required
+            #passwordControl="ngModel"
+            passwordStrength
+          />
+          <mat-hint><b>Senha</b> do usuário</mat-hint>
+          <mat-error *ngIf="passwordControl.hasError('required')">A <b>senha do usuário</b> é obrigatória</mat-error>
+          <mat-error *ngIf="!passwordControl.hasError('required') && passwordControl.hasError('passwordNotStrength')">Digite uma senha <b>mais forte</b></mat-error>
+          <password-strength-bar [password]="passwordControl.value"></password-strength-bar>
+        </mat-form-field>
+
+        <mat-form-field class="user-form__item user-form__item--50">
+          <mat-label>Confirme a senha</mat-label>
+          <input
+            type="password"
+            name="confirmPassword"
+            ngModel
+            matInput
+            required
+            #confirmPasswordControl="ngModel"
+          />
+          <mat-hint>Confirme a <b>senha digitada</b></mat-hint>
+          <mat-error *ngIf="confirmPasswordControl.hasError('required')">A <b>confirmação da senha</b> é obrigatória</mat-error>
+          <mat-error *ngIf="!confirmPasswordControl.hasError('required') && confirmPasswordControl.hasError('passwordsNotEqual')">As senhas informadas <b>devem ser iguais</b></mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,13 @@
+.user {
+  margin-top:15px;
+  width: 100%;
+  display: flex;
+
+  &__card {
+    width: 33%;
+    margin-left: 15px;
+    margin-right: 15px;
+    box-shadow: 2px 2px 4px #646464;
+    cursor: pointer;
+  }
+}

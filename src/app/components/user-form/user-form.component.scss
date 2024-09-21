@@ -1,0 +1,26 @@
+.user-panel {
+  margin: 15px;
+}
+
+.user-form {
+  height: 100%;
+  padding: 20px;
+
+  &__row {
+    width: 100%;
+    display: flex;
+  }
+
+  &__item {
+    padding: 5px;
+
+    &--100 {
+      width: 100%;
+    }
+
+    &--50 {
+      width: 50%;
+    }
+  }
+
+}
