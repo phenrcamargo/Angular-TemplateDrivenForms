@@ -87,6 +87,32 @@
           <mat-error *ngIf="!confirmPasswordControl.hasError('required') && confirmPasswordControl.hasError('passwordsNotEqual')">As senhas informadas <b>devem ser iguais</b></mat-error>
         </mat-form-field>
       </div>
+
+      <div class="user-form__row">
+        <mat-form-field class="user-form__item user-form__item--50">
+          <mat-label>Data de Nascimento:</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [min]="minDate"
+            [max]="maxDate"
+            [ngModel]="dateValue"
+            (ngModelChange)="setDateValueOnUserSelected($event)"
+            [ngModelOptions]="{ standalone: true }"
+            readonly
+            required
+          />
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancelar</button>
+              <button mat-raised-button matDatepickerApply color="primary">Confirmar</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+          <mat-error>A <b>Data de Nascimento</b> é obrigatória.</mat-error>
+        </mat-form-field>
+      </div>
     </form>
   </mat-card-content>
 </mat-card>
