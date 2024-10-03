@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserEntity } from '../domain/entities/user.entity';
 import { UserService } from './services/user.service';
+import { UserDTO } from './dto/user.dto';
+import { UserDTOHandler } from './handler/user_dto.handler';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +11,7 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent implements OnInit {
   usersList: UserEntity[] = [];
-  userSelected: UserEntity = { } as UserEntity;
+  userSelected: UserDTO = { } as UserDTO;
   userSelectedIndex: number = 0;
 
   constructor(
@@ -30,7 +32,7 @@ export class AppComponent implements OnInit {
     const userFound = this.usersList[userIndex];
 
     if (userFound) {
-      this.userSelected = UserEntity.create(userFound);
+      this.userSelected = UserDTOHandler.convertToUserDTO(userFound);
       this.userSelectedIndex = userIndex;
     }
   }
